@@ -1,0 +1,530 @@
+﻿<h3>Detalles de Usuario</h3>
+
+
+<EditForm Model="@completeUserData" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+    @if (User is not null)
+    {
+
+        <DataAnnotationsValidator />
+
+        <FormSection Title="Informacion Basica">
+
+            <div class="row mb-3">
+
+
+                <FormFieldSet Width="col-2" Label="Numero de Empleado">
+
+                    <InputNumber id="Numero de Empleado" class="form-control" @bind-Value="User.ID_USER" />
+                    <ValidationMessage For="() => User.ID_USER" />
+
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-2" Label="Privilegios Web">
+
+
+                </FormFieldSet>
+
+
+
+            </div>
+
+
+            <div class="row mb-3">
+
+                <FormFieldSet Width="col-md-6" Label="Nombre Completo">
+
+                    <InputText id="Nombre Completo" class="form-control" @bind-Value="User.NAME" />
+                    <ValidationMessage For="() => User.NAME" />
+
+                </FormFieldSet>
+
+
+                <FormFieldSet Width="col-md-6" Label="Departamento">
+
+                    <InputSelect id="Departamento" class="form-control" @bind-Value="User.DEPT">
+                        @if (DepartmentsList is not null)
+                        {
+                            @foreach (var dept in DepartmentsList)
+                            {
+                                <option value="@dept">@dept</option>
+                            }
+                        }
+
+                    </InputSelect>
+                    <ValidationMessage For="() => User.DEPT" />
+
+                </FormFieldSet>
+
+
+
+            </div>
+
+            @*
+        <div class="row mb-3">
+        <div class="col-md-6">
+
+        <input class="form-check-input" type="radio" name="radioGroup" id="radio1" value="option1">
+        <label class="form-check-label" for="radio1">Masculino</label>
+        <input class="form-check-input" type="radio" name="radioGroup" id="radio2" value="option2">
+        <label class="form-check-label" for="radio2">Femenino</label>
+
+        </div>
+
+        </div>*@
+            <div class="row mb-3">
+
+                <FormFieldSet Width="col-md-6" Label="Area">
+
+                    <InputSelect id="Area" class="form-control" @bind-Value="User.AREA">
+                        @if (AreasList is not null)
+                        {
+                            @foreach (var area in AreasList)
+                            {
+                                <option value="@area">@area</option>
+                            }
+                        }
+
+                    </InputSelect>
+                    <ValidationMessage For="() => User.DEPT" />
+
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Oficina">
+
+                    <InputSelect id="Office" class="form-control" @bind-Value="User.OFFICE">
+                        @if (OfficeList is not null)
+                        {
+                            @foreach (var office in OfficeList)
+                            {
+                                <option value="@office">@office</option>
+                            }
+                        }
+
+                    </InputSelect>
+                    <ValidationMessage For="() => User.DEPT" />
+
+                </FormFieldSet>
+
+            </div>
+
+            <div class="row mb-3">
+                <FormFieldSet Width="col-md-6" Label="Puesto">
+
+                    <InputText id="Puesto" class="form-control" @bind-Value="User.POSITION" />
+                    <ValidationMessage For="() => User.POSITION" />
+
+                </FormFieldSet>
+
+
+                <FormFieldSet Width="col-md-6" Label="Fecha de Ingreso">
+
+                    <InputDate id="Fecha de Ingreso" class="form-control" @bind-Value="User.ENTRY_DATE" />
+                    <ValidationMessage For="() => User.ENTRY_DATE" />
+
+                </FormFieldSet>
+
+            </div>
+
+
+            <div class="row mb-3">
+                <FormFieldSet Width="col-md-6" Label="Extension Tel.">
+
+
+
+                    <InputNumber id="Tel" class="form-control" @bind-Value="User.TEL" />
+                    <ValidationMessage For="() => User.TEL" />
+
+                </FormFieldSet>
+
+
+                <FormFieldSet Width="col-md-6" Label="Celular">
+
+                    <InputNumber id="Cel" class="form-control" @bind-Value="User.CEL" />
+                    <ValidationMessage For="() => User.CEL" />
+
+                </FormFieldSet>
+
+            </div>
+
+
+
+        </FormSection>
+
+    }
+
+    @if (Credentials is not null)
+    {
+
+        <FormSection Title="Credenciales">
+            <div class="row mb-3">
+
+                <h6>Portal Web</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Usuario">
+                    <InputText id="portal" class="form-control" @bind-Value="Credentials.PORTAL_USER" />
+                    <ValidationMessage For="() => Credentials.PORTAL_USER" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="portal-pass" class="form-control" @bind-Value="Credentials.PORTAL_PASS" />
+                    <ValidationMessage For="() => Credentials.PORTAL_PASS" />
+                </FormFieldSet>
+
+            </div>
+
+
+            <div class="row mb-3">
+
+                <h6>Sistemas CASA</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Usuario">
+                    <InputText id="casa" class="form-control" @bind-Value="Credentials.CASA_USER" />
+                    <ValidationMessage For="() => Credentials.CASA_USER" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="casa-pass" class="form-control" @bind-Value="Credentials.CASA_PASS" />
+                    <ValidationMessage For="() => Credentials.CASA_PASS" />
+                </FormFieldSet>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <h6>Mozart</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Usuario">
+                    <InputText id="mozart" class="form-control" @bind-Value="Credentials.MOZART_USER" />
+                    <ValidationMessage For="() => Credentials.MOZART_USER" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="mozart-pass" class="form-control" @bind-Value="Credentials.MOZART_PASS" />
+                    <ValidationMessage For="() => Credentials.MOZART_PASS" />
+                </FormFieldSet>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <h6>DARWIN</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Usuario">
+                    <InputText id="darwin" class="form-control" @bind-Value="Credentials.DARWIN_USER" />
+                    <ValidationMessage For="() => Credentials.DARWIN_USER" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="darwin-pass" class="form-control" @bind-Value="Credentials.DARWIN_PASS" />
+                    <ValidationMessage For="() => Credentials.DARWIN_PASS" />
+                </FormFieldSet>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <h6>OPENVPN</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Usuario">
+                    <InputText id="vpn" class="form-control" @bind-Value="Credentials.VPN_USER" />
+                    <ValidationMessage For="() => Credentials.VPN_USER" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="vpn-pass" class="form-control" @bind-Value="Credentials.VPN_PASS" />
+                    <ValidationMessage For="() => Credentials.VPN_PASS" />
+                </FormFieldSet>
+
+            </div>
+        </FormSection>
+
+    }
+
+   @* @if (Emails is not null)
+    {
+
+        <FormSection Title="Emails">
+            <div class="row mb-3">
+
+
+                <h6>Email - 1</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Cuenta">
+                    <InputText id="email-1" class="form-control" @bind-Value="Emails.EMAIL_1" />
+                    <ValidationMessage For="() => Emails.EMAIL_1" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="email-pass-1" class="form-control" @bind-Value="Emails.PASS_1" />
+                    <ValidationMessage For="() => Emails.PASS_1" />
+                </FormFieldSet>
+
+            </div>
+
+
+            <div class="row mb-3">
+
+
+                <h6>Email - 2</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Cuenta">
+                    <InputText id="email-2" class="form-control" @bind-Value="Emails.EMAIL_2" />
+                    <ValidationMessage For="() => Emails.EMAIL_2" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="email-pass-2" class="form-control" @bind-Value="Emails.PASS_2" />
+                    <ValidationMessage For="() => Emails.PASS_2" />
+                </FormFieldSet>
+
+            </div>
+
+            <div class="row mb-3">
+
+
+                <h6>Email - 3</h6>
+
+                <FormFieldSet Width="col-md-6" Label="Cuenta">
+                    <InputText id="email-3" class="form-control" @bind-Value="Emails.EMAIL_3" />
+                    <ValidationMessage For="() => Emails.EMAIL_3" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Contraseña">
+                    <InputText id="email-pass-3" class="form-control" @bind-Value="Emails.PASS_3" />
+                    <ValidationMessage For="() => Emails.PASS_3" />
+                </FormFieldSet>
+
+            </div>
+
+        </FormSection>
+
+    }*@
+
+  @*  @if (Computer is not null)
+    {
+
+        <FormSection Title="Computadora">
+            <div class="row mb-3">
+
+                <FormFieldSet Width="col-md-6" Label="Tipo de Computadora">
+                    <InputText id="pc-type" class="form-control" @bind-Value="Computer.PC_TYPE" />
+                    <ValidationMessage For="() => Computer.PC_TYPE" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Direccion IP">
+                    <InputText id="pc-ip" class="form-control" @bind-Value="Computer.IP" />
+                    <ValidationMessage For="() => Computer.IP" />
+                </FormFieldSet>
+
+            </div>
+
+
+            <div class="row mb-3">
+
+                <FormFieldSet Width="col-md-6" Label="Nombre del Equipo">
+                    <InputText id="pc-name" class="form-control" @bind-Value="Computer.PC_NAME" />
+                    <ValidationMessage For="() => Computer.PC_NAME" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Modelo">
+                    <InputText id="model" class="form-control" @bind-Value="Computer.MODEL" />
+                    <ValidationMessage For="() => Computer.MODEL" />
+                </FormFieldSet>
+
+            </div>
+
+
+            <div class="row mb-3">
+
+                <FormFieldSet Width="col-md-6" Label="Ranuras de RAM Ocupadas">
+                    <InputText id="pc-used-ram" class="form-control" @bind-Value="Computer.USED_RAM_SLOTS" />
+                    <ValidationMessage For="() => Computer.USED_RAM_SLOTS" />
+                </FormFieldSet>
+
+                <FormFieldSet Width="col-md-6" Label="Fecha del Ultimo Mantenimiento">
+                    <InputDate id="last-maintenance" class="form-control" @bind-Value="Computer.LAST_MAINT" />
+                    <ValidationMessage For="() => Computer.LAST_MAINT" />
+                </FormFieldSet>
+
+            </div>
+
+
+        </FormSection>
+
+    }
+
+*@
+    <div class="mt-3">
+        @if (IsEdit)
+        {
+            <button type="submit" class="btn btn-primary" disabled="@IsBusy">Actualizar</button>
+            <button type="button" class="btn btn-secondary" @onclick="HandleCancel" disabled="@IsBusy">Cancelar</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary" disabled="@IsBusy">Agregar Usuario</button>
+        }
+    </div>
+
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public User? User { get; set; }
+
+    [Parameter]
+    public UserCredentials? Credentials { get; set; }
+
+    [Parameter]
+    public UserEmails? Emails { get; set; }
+
+
+    //[Parameter]
+    //public UserPC? Computer { get; set; }
+
+
+    private CompleteUserData completeUserData = new CompleteUserData();
+
+    [Parameter]
+    public string[]? DepartmentsList { get; set; }
+    [Parameter]
+    public string[]? OfficeList { get; set; }
+    [Parameter]
+    public string[]? AreasList { get; set; }
+
+    [Parameter]
+    public bool IsBusy { get; set; }
+
+    [Parameter]
+    public bool IsEdit { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnSubmit { get; set; }
+
+
+    [Parameter]
+    public EventCallback<bool> OnCancel { get; set; }
+
+    private string? imageFilePath;
+
+    private string? base64ImagePreview;
+
+    //private UserPictureUpload? userPictureUploadRef;
+
+
+    private string? UploadStyles;
+
+
+    protected override void OnInitialized()
+    {
+        // Populate completeUserData instance
+        completeUserData.User = User;
+        completeUserData.Credentials = Credentials;
+        //completeUserData.Pc = Computer;
+        //completeUserData.Emails = Emails;
+    }
+
+
+
+    @*
+    private void HandleFileUpload(string path)
+    {
+        imageFilePath = path;
+        Console.WriteLine("Ruta de la imagen: " + imageFilePath);
+        // Aquí puede a signar imageFilePath al modelo de usuario, si es necesario
+        if (User is not null)
+        {
+            User.IMAGE_NAME = imageFilePath;
+        }
+
+    }
+
+
+    private void HandleFilePreview(string base64String)
+    {
+        base64ImagePreview = base64String;
+    }
+
+    private string GetImagePath()
+    {
+
+        if (!string.IsNullOrEmpty(base64ImagePreview))
+        {
+            return base64ImagePreview;
+        }
+        else if (User?.IMAGE_NAME is not null)
+        {
+            return $"/Images/{User.IMAGE_NAME}";
+        }
+        else
+        {
+            return $"/Images/default.svg";
+        }
+    }
+
+    private void RemoveImage()
+    {
+        base64ImagePreview = null;
+        imageFilePath = null;
+        if (User is not null)
+        {
+            User.IMAGE_NAME = null;
+        }
+        userPictureUploadRef?.ClearingFile();
+    }
+
+    private string HandlingUploadStyles()
+    {
+        return
+        (!string.IsNullOrEmpty(base64ImagePreview) || (User?.IMAGE_NAME is not null && User.IMAGE_NAME != "default.svg"))
+        ? "Cambiar" : "Agregar";
+    }
+
+       *@
+
+
+
+
+
+    private async Task HandleValidSubmit()
+    {
+        @*
+        if (userPictureUploadRef != null)
+        {
+            await userPictureUploadRef.SubmitImage();
+        }
+
+
+        // Actualizar User.IMAGE_NAME sólo si imageFilePath tiene un valor
+        if (User != null && !string.IsNullOrEmpty(imageFilePath))
+        {
+            User.IMAGE_NAME = imageFilePath;
+        }
+             *@
+        if (OnSubmit.HasDelegate)
+        {
+            await OnSubmit.InvokeAsync(true);
+        }
+
+    }
+
+
+
+    private async Task HandleInvalidSubmit()
+    {
+        if (OnSubmit.HasDelegate)
+        {
+            await OnSubmit.InvokeAsync(false);
+        }
+    }
+
+    private async Task HandleCancel()
+    {
+        if (OnCancel.HasDelegate)
+        {
+            await OnCancel.InvokeAsync();
+        }
+
+    }
+}

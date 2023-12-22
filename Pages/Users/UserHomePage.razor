@@ -1,0 +1,34 @@
+﻿@page "/"
+<PageTitle>Project Tescatlipoca</PageTitle>
+
+<h1>Usuarios</h1>
+
+
+@if (Users is null)
+{
+    <div><h3>Cargando Usuarios...</h3></div>
+}
+else
+{
+    @foreach (var user in Users)
+    {
+        <p>   <span>@user.ID_USER: </span> @user.NAME</p>
+    }
+}
+
+
+@code {
+    private User[]? Users { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = ContextFactory.CreateDbContext();
+        try
+        {
+            Users = await context.Users.ToArrayAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Hubo un problema al cargar la informacion de los usuarios{ex.Message}");
+        }
+    }
+}
