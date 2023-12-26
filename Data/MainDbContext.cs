@@ -17,7 +17,7 @@ namespace Tescatlipoca.Data
 
         public DbSet<UserEmails> Emails => Set<UserEmails>();
 
-        //public DbSet<UserPC> PC => Set<UserPC>();
+        public DbSet<UserPC> PC => Set<UserPC>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,8 @@ namespace Tescatlipoca.Data
                .HasKey(c => c.USER_EMAILS_ID);
 
 
-            //modelBuilder.Entity<UserPC>()
-            //    .HasKey(d => d.ID_PC);
+            modelBuilder.Entity<UserPC>()
+                .HasKey(d => d.ID_PC);
 
         }
 

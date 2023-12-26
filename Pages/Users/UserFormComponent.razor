@@ -240,7 +240,7 @@
 
     }
 
-   @* @if (Emails is not null)
+    @if (Emails is not null)
     {
 
         <FormSection Title="Emails">
@@ -298,9 +298,9 @@
 
         </FormSection>
 
-    }*@
+    }
 
-  @*  @if (Computer is not null)
+    @if (Computer is not null)
     {
 
         <FormSection Title="Computadora">
@@ -353,7 +353,7 @@
 
     }
 
-*@
+
     <div class="mt-3">
         @if (IsEdit)
         {
@@ -380,8 +380,8 @@
     public UserEmails? Emails { get; set; }
 
 
-    //[Parameter]
-    //public UserPC? Computer { get; set; }
+    [Parameter]
+    public UserPC? Computer { get; set; }
 
 
     private CompleteUserData completeUserData = new CompleteUserData();
@@ -421,8 +421,9 @@
         // Populate completeUserData instance
         completeUserData.User = User;
         completeUserData.Credentials = Credentials;
-        //completeUserData.Pc = Computer;
-        //completeUserData.Emails = Emails;
+        completeUserData.Emails = Emails;
+        completeUserData.Pc = Computer;
+  
     }
 
 

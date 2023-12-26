@@ -25,7 +25,7 @@
 else
 {
     <h3>Agregar</h3>
-    <UserFormComponent IsBusy="@IsBusy" User="@User" Credentials="@Credentials" Emails="@Emails"
+    <UserFormComponent IsBusy="@IsBusy" User="@User" Credentials="@Credentials" Emails="@Emails" Computer="@Computer"
                        DepartmentsList="@DepartmentsList" OfficeList="@OfficeList" AreasList="@AreasList" OnSubmit="@HandleSubmit" OnCancel="ReturnToAddUsersHome" />
 }
 
@@ -46,6 +46,7 @@ else
     private User? User { get; set; }
     private UserCredentials? Credentials { get; set; } 
     private UserEmails? Emails { get; set; }
+    private UserPC? Computer { get; set; }
 
     public bool IsBusy { get; set; }
 
@@ -97,6 +98,8 @@ else
 
             Emails = new();
 
+            Computer = new();
+
 
             //For new Users
             if (UserID.HasValue)
@@ -110,11 +113,12 @@ else
 
 
 
-    private async Task<User> InsertUser(User newUser, UserCredentials credentials, UserEmails emails)
+    private async Task<User> InsertUser(User newUser, UserCredentials credentials, UserEmails emails, UserPC computer)
     {
         if (newUser == null) throw new ArgumentNullException(nameof(newUser));
         if (credentials == null) throw new ArgumentNullException(nameof(credentials));
         if (emails == null) throw new ArgumentNullException(nameof(emails));
+        if (computer == null) throw new ArgumentNullException(nameof(computer));
 
         using var context = ContextFactory.CreateDbContext();
 
@@ -127,6 +131,9 @@ else
         await context.SaveChangesAsync();
 
         context.Emails.Add(emails);
+        await context.SaveChangesAsync();
+
+        context.PC.Add(computer);
         await context.SaveChangesAsync();
 
      
@@ -148,13 +155,15 @@ else
 
         try
         {
-            if (User is not null && Credentials is not null && Emails is not null)
+            if (User is not null && Credentials is not null && Emails is not null && Computer is not null)
             {
                 // Aqui mandamos los ID para el nuevo usuario
                 Credentials.ID_USER = User.ID_USER;
                 Emails.ID_USER = User.ID_USER;
+                Computer.ID_USER = User.ID_USER;
+
                 UserID = User.ID_USER;  
-                await InsertUser(User, Credentials, Emails);
+                await InsertUser(User, Credentials, Emails, Computer);
              
                 
 
@@ -167,6 +176,8 @@ else
                 Credentials = new();
 
                 Emails = new();
+
+                Computer = new();
 
                 EditUserPage();
             }
