@@ -26,7 +26,7 @@ else
 {
     <h3>Editar</h3>
     <UserFormComponent IsEdit="true" IsBusy="@IsBusy" User="@User"
-                       Credentials="@Credentials" Emails="@Emails" Computer="@Computer"
+                       Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager" Computer="@Computer"
                        DepartmentsList="@DepartmentsList" OfficeList="@OfficeList" AreasList="@AreasList"
                        OnSubmit="@HandleSubmit" OnCancel="ReturnToUsersHome" />
 
@@ -49,6 +49,7 @@ else
     private User? User { get; set; }
     private UserCredentials? Credentials { get; set; }
     private UserEmails? Emails { get; set; }
+    private EmailManager emailManager = new EmailManager();
     private UserPC? Computer { get; set; }
 
 
@@ -75,7 +76,6 @@ else
         SuccessMessage = null;
 
 
-
         try
         {
 
@@ -99,10 +99,10 @@ else
             .AsNoTracking().FirstOrDefaultAsync(email => email.ID_USER == UserDbId);
 
 
-             Computer = await context.PC
-            .AsNoTracking().FirstOrDefaultAsync(pc => pc.ID_USER == UserDbId);
+            Computer = await context.PC
+           .AsNoTracking().FirstOrDefaultAsync(pc => pc.ID_USER == UserDbId);
 
-         
+
             if (Credentials == null)
             {
                 Credentials = new UserCredentials();
@@ -112,6 +112,26 @@ else
             if (Emails == null)
             {
                 Emails = new UserEmails();
+            }
+
+            if (Emails != null)
+            {
+                // Clear existing email accounts in the manager to avoid duplicates
+                emailManager.EmailAccounts.Clear();
+
+                // Initialize EmailManager with existing data
+                if (!string.IsNullOrEmpty(Emails.EMAIL_1))
+                {
+                    emailManager.AddEmailAccount(Emails.EMAIL_1, Emails.PASS_1 ?? "");
+                }
+                if (!string.IsNullOrEmpty(Emails.EMAIL_2))
+                {
+                    emailManager.AddEmailAccount(Emails.EMAIL_2, Emails.PASS_2 ?? "");
+                }
+                if (!string.IsNullOrEmpty(Emails.EMAIL_3))
+                {
+                    emailManager.AddEmailAccount(Emails.EMAIL_3, Emails.PASS_3 ?? "");
+                }
             }
 
             if (Computer == null)
@@ -127,6 +147,7 @@ else
         {
             IsBusy = false;
         }
+
     }
 
 
@@ -154,7 +175,7 @@ else
         context.PC.Update(newPc);
 
         await context.SaveChangesAsync();
-     
+
 
 
         await transaction.CommitAsync();

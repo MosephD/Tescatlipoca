@@ -35,6 +35,13 @@ namespace Tescatlipoca.Data.Models
 
         public bool? WEB_PRIVILEGES { get; set; }
 
+        [NotMapped]
+        public bool NON_NULL_WEB_PRIVILEGES
+        {
+            get => WEB_PRIVILEGES.GetValueOrDefault();
+            set => WEB_PRIVILEGES = value; 
+        }
+
         //[Required]
         public DateTime? LAST_MODIF { get; set; }
 
