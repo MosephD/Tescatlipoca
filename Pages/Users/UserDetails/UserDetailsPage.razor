@@ -24,11 +24,11 @@
 }
 else
 {
-    <h3>Editar</h3>
+    @*   <h3>Editar</h3>*@
     <UserFormComponent IsEdit="true" IsBusy="@IsBusy" User="@User"
-                       Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager" Computer="@Computer"
+                       Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager"
                        DepartmentsList="@DepartmentsList" OfficeList="@OfficeList" AreasList="@AreasList"
-                       OnSubmit="@HandleSubmit" OnCancel="ReturnToUsersHome" />
+                       OnSubmit="@HandleSubmit" OnDelete="@DeleteUser" OnCancel="ReturnToUsersHome" />
 
 }
 
@@ -50,7 +50,7 @@ else
     private UserCredentials? Credentials { get; set; }
     private UserEmails? Emails { get; set; }
     private EmailManager emailManager = new EmailManager();
-    private UserPC? Computer { get; set; }
+
 
 
     private bool IsBusy { get; set; }
@@ -88,6 +88,22 @@ else
             DepartmentsList = Departments.Where(u => u.DEPT != null).Select(u => u.DEPT!).Distinct().ToArray();
 
 
+
+            var Offices = await context.Users
+            .AsNoTracking().OrderBy(office => office.OFFICE).ToArrayAsync();
+
+            OfficeList = Offices.Where(u => u.OFFICE != null).Select(u => u.OFFICE!).Distinct().ToArray();
+
+
+
+            var Areas = await context.Users
+            .AsNoTracking().OrderBy(area => area.AREA).ToArrayAsync();
+            AreasList = Areas.Where(u => u.AREA != null).Select(u => u.AREA!).Distinct().ToArray();
+
+
+
+
+
             User = await context.Users
             .AsNoTracking().FirstOrDefaultAsync(usr => usr.ID_USER == UserDbId);
 
@@ -99,8 +115,7 @@ else
             .AsNoTracking().FirstOrDefaultAsync(email => email.ID_USER == UserDbId);
 
 
-            Computer = await context.PC
-           .AsNoTracking().FirstOrDefaultAsync(pc => pc.ID_USER == UserDbId);
+
 
 
             if (Credentials == null)
@@ -134,10 +149,6 @@ else
                 }
             }
 
-            if (Computer == null)
-            {
-                Computer = new UserPC();
-            }
 
 
             OriginalUserId = User?.ID_USER;
@@ -151,12 +162,12 @@ else
     }
 
 
-    private async Task<User> InsertUser(User newUser, UserCredentials newCredentials, UserEmails newEmails, UserPC newPc)
+    private async Task<User> InsertUser(User newUser, UserCredentials newCredentials, UserEmails newEmails)
     {
         if (newUser == null) throw new ArgumentNullException(nameof(newUser));
         if (newCredentials == null) throw new ArgumentNullException(nameof(newCredentials));
         if (newEmails == null) throw new ArgumentNullException(nameof(newEmails));
-        if (newPc == null) throw new ArgumentNullException(nameof(newPc));
+
 
 
         using var context = ContextFactory.CreateDbContext();
@@ -171,8 +182,7 @@ else
         newEmails.ID_USER = newUser.ID_USER;
         context.Emails.Update(newEmails);
 
-        newPc.ID_USER = newUser.ID_USER;
-        context.PC.Update(newPc);
+
 
         await context.SaveChangesAsync();
 
@@ -183,23 +193,31 @@ else
     }
 
 
-    private async Task<User> UpdateUser(User updatedUser, UserCredentials updatedCredentials, UserEmails updatedEmails, UserPC updatedPc, int? originalUserId)
+    private async Task<User> UpdateUser(User updatedUser, UserCredentials updatedCredentials, UserEmails updatedEmails, int? originalUserId)
     {
         if (updatedUser == null) throw new ArgumentNullException(nameof(updatedUser));
         if (updatedCredentials == null) throw new ArgumentNullException(nameof(updatedCredentials));
         if (updatedEmails == null) throw new ArgumentNullException(nameof(updatedEmails));
-        if (updatedPc == null) throw new ArgumentNullException(nameof(updatedPc));
-
-
-
-
-        updatedCredentials.ID_USER = updatedUser.ID_USER;
-        updatedEmails.ID_USER = updatedUser.ID_USER;
-        updatedPc.ID_USER = updatedUser.ID_USER;
-
 
 
         using var context = ContextFactory.CreateDbContext();
+
+
+        Console.WriteLine("eluno" + updatedCredentials.ID_USER);
+        // Suponiendo que 'updatedCredentials' ya está siendo rastreado por el contexto de EF...
+        var entry = context.Entry(updatedCredentials);
+
+
+        updatedCredentials.ID_USER = updatedUser.ID_USER;
+
+
+        Console.WriteLine("edos" + updatedCredentials.ID_USER);
+
+        updatedEmails.ID_USER = updatedUser.ID_USER;
+
+
+
+
 
         // Add logic to handle image name change when ID_USER changes
         if (originalUserId != updatedUser.ID_USER)
@@ -208,7 +226,7 @@ else
             //updatedUser.IMAGE_NAME = imageNameChange;
 
 
-            await InsertUser(updatedUser, updatedCredentials, updatedEmails, updatedPc);
+            await InsertUser(updatedUser, updatedCredentials, updatedEmails);
 
             // Delete the user with the old ID after creating the new one
             if (originalUserId.HasValue)
@@ -223,7 +241,7 @@ else
 
             context.Update(updatedCredentials);
             context.Update(updatedEmails);
-            context.Update(updatedPc);
+
             context.Update(updatedUser);
         }
 
@@ -232,18 +250,35 @@ else
     }
 
 
+    private async Task DeleteUser(User deletedUser)
+    {
+        using var context = ContextFactory.CreateDbContext();
+        using var transaction = await context.Database.BeginTransactionAsync();
+
+        await NullifyUserIdAsync(context.User_Credentials.Where(p => p.ID_USER == deletedUser.ID_USER));
+   
+
+        await NullifyUserIdAsync(context.Emails.Where(p => p.ID_USER == deletedUser.ID_USER));
+
+         context.Users.Remove(deletedUser);
+
+        await context.SaveChangesAsync();
+        await transaction.CommitAsync();
+
+
+        NavigationManager.NavigateTo($"/users/");
+    }
 
 
     private async Task HandleSubmit(bool isValid)
     {
-        if (User is null || Credentials is null || Emails is null || Computer is null || IsBusy || !isValid)
+        if (User is null || Credentials is null || Emails is null || IsBusy || !isValid)
         {
             ErrorMessage = null;
             return;
         }
 
         IsBusy = true;
-
 
         try
         {
@@ -259,15 +294,13 @@ else
                 SuccessMessage = null;
                 ErrorMessage = $"Ya existe un usuario con el numero de empleado {User.ID_USER}.";
 
-
             }
             else
             {
 
+                Console.WriteLine("clelenshials juser" + Credentials.ID_USER);
                 //aqui se mandan los datos
-                await UpdateUser(User, Credentials, Emails, Computer, OriginalUserId);
-
-
+                await UpdateUser(User, Credentials, Emails, OriginalUserId);
 
                 OriginalUserId = User.ID_USER;
 
@@ -294,11 +327,9 @@ else
         }
     }
 
-
-
-    private async
-       Task NullifyUserIdAsync<T>(IQueryable<T> queryable) where T : class, new()
+    private async Task NullifyUserIdAsync<T>(IQueryable<T> queryable) where T : class
     {
+        using var context = ContextFactory.CreateDbContext(); // Ensure you have access to your DbContext
         var records = await queryable.ToListAsync();
         PropertyInfo? propertyInfo = typeof(T).GetProperty("ID_USER");
 
@@ -307,10 +338,12 @@ else
             foreach (var record in records)
             {
                 propertyInfo.SetValue(record, null);
+                context.Entry(record).State = EntityState.Modified; // Marking it as modified to track changes
             }
         }
-    }
 
+        await context.SaveChangesAsync(); // Save the changes
+    }
 
     private async Task userIDChanged(int oldUserId, int newUserId, MainDbContext context)
     {
@@ -326,7 +359,6 @@ else
         // Save changes
         await context.SaveChangesAsync();
     }
-
 
     protected void AddNewUserPage()
     {

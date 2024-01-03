@@ -1,0 +1,136 @@
+﻿@for (int i = 0; i < emailManager.EmailAccounts.Count; i++)
+{
+    var email = emailManager.EmailAccounts[i];
+
+
+    <div class="row mb-3">
+
+        <div class="col-2">
+            <div class="form-group">
+                <label class="font-weight-bold text-secondary">
+                    Email
+                </label>
+                <p> @(i + 1)</p><!-- INDEX NUMBER -->
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <FormFieldSet Width="col" Label="Usuario">
+                    <InputText class="form-control" @bind-Value="email.Email" />
+                    <ValidationMessage For="() => email.Email" />
+                </FormFieldSet>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <FormFieldSet Width="col" Label="Contraseña">
+                    <InputText id="password" class="form-control" @bind-Value="email.Password" />
+                    <ValidationMessage For="() => email.Password" />
+                </FormFieldSet>
+            </div>
+        </div>
+
+
+        <div class="col-1 d-flex mt-3">
+            <button class="btn btn-link" type="button" @onclick="() => RemoveEmail(email)">
+                <svg width="1em" height="1em" viewBox="0 0 16 16"
+                     class="bi bi-x-circle-fill text-danger"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0
+                        8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1
+                        0-.708.708L7.293 8l-2.647 2.646a.5.5
+                        0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0
+                        .708-.708L8.707 8l2.647-2.646a.5.5 0 0
+                        0-.708-.708L8 7.293 5.354 4.646z" />
+                </svg>
+            </button>
+
+        </div>
+
+    </div>
+}
+
+@if (emailManager.EmailAccounts.Count < 3)
+{
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-outline-primary"
+                    type="button" @onclick="AddNewEmail">
+                Agregar Email
+            </button>
+        </div>
+    </div>
+
+}
+
+@code {
+    [Parameter]
+    public UserEmails? Emails { get; set; }
+
+    [Parameter]
+    public EmailManager? emailManager { get; set; }
+
+
+
+    private void AddNewEmail()
+    {
+        if (emailManager is not null)
+        {
+            // Initialize with empty strings or set up a UI to capture these values
+            emailManager.AddEmailAccount(string.Empty, string.Empty);
+        }
+    }
+
+    private void RemoveEmail(EmailAccount account)
+    {
+        if (emailManager is not null)
+        {
+            emailManager.RemoveEmailAccount(account);
+        }
+    }
+
+
+    public void PopulateEmails()
+    {
+
+        // Debug or log the count of email accounts
+        //Console.WriteLine($"Number of email accounts before assigning: {emailManager?.EmailAccounts.Count}");
+
+        if (Emails != null)
+        {
+            // Clear existing values
+            Emails.EMAIL_1 = null;
+            Emails.EMAIL_2 = null;
+            Emails.EMAIL_3 = null;
+
+            // Assign new values from the emailManager
+            for (int i = 0; i < emailManager?.EmailAccounts.Count; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        Emails.EMAIL_1 = emailManager.EmailAccounts[i].Email;
+                        Emails.PASS_1 = emailManager.EmailAccounts[i].Password;
+                        break;
+                    case 1:
+                        Emails.EMAIL_2 = emailManager.EmailAccounts[i].Email;
+                        Emails.PASS_2 = emailManager.EmailAccounts[i].Password;
+                        break;
+                    case 2:
+                        Emails.EMAIL_3 = emailManager.EmailAccounts[i].Email;
+                        Emails.PASS_3 = emailManager.EmailAccounts[i].Password;
+                        break;
+                }
+            }
+
+            // Debug or log the email assignments
+            //Console.WriteLine($"Email 1: {Emails.EMAIL_1}, Email 2: {Emails.EMAIL_2}, Email 3: {Emails.EMAIL_3}");
+        }
+
+
+
+    }
+
+}

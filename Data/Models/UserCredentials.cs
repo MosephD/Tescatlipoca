@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace Tescatlipoca.Data.Models
 {
     public  class UserCredentials

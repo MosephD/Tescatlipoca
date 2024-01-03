@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.ConstrainedExecution;
+
 
 namespace Tescatlipoca.Data.Models
 {
@@ -24,6 +24,13 @@ namespace Tescatlipoca.Data.Models
         public string? POSITION { get; set; } = default!;
         //[Required]
         public DateTime? ENTRY_DATE { get; set; }
+
+        [NotMapped]
+        public DateTime NON_NULL_ENTRY_DATE
+        {
+            get => ENTRY_DATE.GetValueOrDefault();
+            set => ENTRY_DATE = value;
+        }
 
         public DateTime? LAST_WORKING_DATE { get; set; }
 

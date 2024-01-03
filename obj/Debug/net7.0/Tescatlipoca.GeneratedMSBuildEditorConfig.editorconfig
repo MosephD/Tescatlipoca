@@ -10,6 +10,8 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Tescatlipoca
 build_property.RootNamespace = Tescatlipoca
 build_property.ProjectDir = C:\Users\medin\Projects\Tescatlipoca\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
@@ -32,32 +34,44 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/AddUserDetailsPage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQWRkVXNlckRldGFpbHNQYWdlLnJhem9y
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserDetails/AddUserDetailsPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckRldGFpbHNcQWRkVXNlckRldGFpbHNQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/AddUserPage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQWRkVXNlclBhZ2UucmF6b3I=
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserDetails/UserDetailsPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckRldGFpbHNcVXNlckRldGFpbHNQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/FormFieldSet.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcRm9ybUZpZWxkU2V0LnJhem9y
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/ComputerFields.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXENvbXB1dGVyRmllbGRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/FormSection.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcRm9ybVNlY3Rpb24ucmF6b3I=
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/CredentialsFields.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXENyZWRlbnRpYWxzRmllbGRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserDetailsPage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckRldGFpbHNQYWdlLnJhem9y
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/EmailFields.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXEVtYWlsRmllbGRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserFormComponent.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1Db21wb25lbnQucmF6b3I=
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/FormFieldSet.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXEZvcm1GaWVsZFNldC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserHomePage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckhvbWVQYWdlLnJhem9y
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/FormSection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXEZvcm1TZWN0aW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/UserFields.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXFVzZXJGaWVsZHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/UserFormComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXFVzZXJGb3JtQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserForms/UserImageComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckZvcm1zXFVzZXJJbWFnZUNvbXBvbmVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/medin/Projects/Tescatlipoca/Shared/SurveyPrompt.razor]
@@ -68,9 +82,41 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/AddUserPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQWRkVXNlclBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ygo3s8x9z6
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserCard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckNhcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-w60lc5if5z
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserHomePage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckhvbWVQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-squoc9itiz
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserHomePageLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlckhvbWVQYWdlTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-dl695wi58m
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserPageControls/UserFilter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlclBhZ2VDb250cm9sc1xVc2VyRmlsdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-log71esebe
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserPageControls/UserHomePageControls.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlclBhZ2VDb250cm9sc1xVc2VySG9tZVBhZ2VDb250cm9scy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-bsl0l2y0f5
+
+[C:/Users/medin/Projects/Tescatlipoca/Pages/Users/UserPageControls/UserSearch.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlclBhZ2VDb250cm9sc1xVc2VyU2VhcmNoLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-rr3elpwvhq
+
 [C:/Users/medin/Projects/Tescatlipoca/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-18gkuiyqp2
+
+[C:/Users/medin/Projects/Tescatlipoca/Shared/MainModal.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5Nb2RhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-hgrf3nvll9
 
 [C:/Users/medin/Projects/Tescatlipoca/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=

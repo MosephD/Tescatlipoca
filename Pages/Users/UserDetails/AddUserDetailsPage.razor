@@ -24,8 +24,8 @@
 }
 else
 {
-    <h3>Agregar</h3>
-    <UserFormComponent IsBusy="@IsBusy" User="@User" Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager" Computer="@Computer"
+@*    <h3>Agregar</h3>*@
+    <UserFormComponent IsBusy="@IsBusy" User="@User" Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager" 
                        DepartmentsList="@DepartmentsList" OfficeList="@OfficeList" AreasList="@AreasList" OnSubmit="@HandleSubmit" OnCancel="ReturnToAddUsersHome" />
 }
 
@@ -47,7 +47,7 @@ else
     private UserCredentials? Credentials { get; set; } 
     private UserEmails? Emails { get; set; }
     private EmailManager emailManager = new EmailManager();
-    private UserPC? Computer { get; set; }
+
 
     public bool IsBusy { get; set; }
 
@@ -99,8 +99,6 @@ else
 
             Emails = new();
 
-            Computer = new();
-
 
             //For new Users
             if (UserID.HasValue)
@@ -114,13 +112,12 @@ else
 
 
 
-    private async Task<User> InsertUser(User newUser, UserCredentials credentials, UserEmails emails, UserPC computer)
+    private async Task<User> InsertUser(User newUser, UserCredentials credentials, UserEmails emails)
     {
         if (newUser == null) throw new ArgumentNullException(nameof(newUser));
         if (credentials == null) throw new ArgumentNullException(nameof(credentials));
         if (emails == null) throw new ArgumentNullException(nameof(emails));
-        if (computer == null) throw new ArgumentNullException(nameof(computer));
-
+       
         using var context = ContextFactory.CreateDbContext();
 
         using var transaction = await context.Database.BeginTransactionAsync();
@@ -132,9 +129,6 @@ else
         await context.SaveChangesAsync();
 
         context.Emails.Add(emails);
-        await context.SaveChangesAsync();
-
-        context.PC.Add(computer);
         await context.SaveChangesAsync();
 
      
@@ -156,15 +150,15 @@ else
 
         try
         {
-            if (User is not null && Credentials is not null && Emails is not null && Computer is not null)
+            if (User is not null && Credentials is not null && Emails is not null )
             {
                 // Aqui mandamos los ID para el nuevo usuario
                 Credentials.ID_USER = User.ID_USER;
                 Emails.ID_USER = User.ID_USER;
-                Computer.ID_USER = User.ID_USER;
+               
 
                 UserID = User.ID_USER;  
-                await InsertUser(User, Credentials, Emails, Computer);
+                await InsertUser(User, Credentials, Emails);
              
                 
 
@@ -178,8 +172,7 @@ else
 
                 Emails = new();
 
-                Computer = new();
-
+              
                 EditUserPage();
             }
 
