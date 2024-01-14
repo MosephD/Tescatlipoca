@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Tescatlipoca.Data.Models
 {
     public class UserEmails
@@ -12,17 +15,14 @@ namespace Tescatlipoca.Data.Models
 
         public string? PASS_1 { get; set; }
 
-      
-     
         public string? EMAIL_2 { get; set; }
 
         public string? PASS_2 { get; set; }
-
 
         public string? EMAIL_3 { get; set; }
 
         public string? PASS_3 { get; set; }
 
 
-    }
+        }
 }

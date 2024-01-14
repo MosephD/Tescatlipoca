@@ -14,7 +14,11 @@
     @if (Emails is not null)
     {
         <FormSection Title="Emails">
-            <EmailFields Emails="Emails" emailManager="emailManager" @ref="emailFields" />
+           @*  <EmailFields Emails="Emails" emailManager="emailManager" @ref="emailFields" /> *@
+
+
+            <EmailFieldsMeta Emails="Emails"  />
+
         </FormSection>
     }
 
@@ -69,8 +73,8 @@
 
     private CompleteUserData completeUserData = new CompleteUserData();
 
-    EmailFields? emailFields;
-
+    // EmailFields? emailFields;
+    // EmailFieldsMeta? emailFieldsMeta;
 
     [Parameter]
     public string[]? DepartmentsList { get; set; }
@@ -108,7 +112,7 @@
 
     private async Task HandleValidSubmit()
     {
-        if (emailFields is not null) { emailFields.PopulateEmails(); }
+         // if (emailFieldsMeta is not null) { emailFieldsMeta.UpdateUserEmails(); }
 
 
         if (OnSubmit.HasDelegate)
