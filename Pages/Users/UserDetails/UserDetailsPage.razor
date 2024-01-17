@@ -26,7 +26,7 @@ else
 {
     @*   <h3>Editar</h3>*@
     <UserFormComponent IsEdit="true" IsBusy="@IsBusy" User="@User"
-                       Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager"
+                       Credentials="@Credentials" Emails="@Emails"
                        DepartmentsList="@DepartmentsList" OfficeList="@OfficeList" AreasList="@AreasList"
                        OnSubmit="@HandleSubmit" OnDelete="@DeleteUser" OnCancel="ReturnToUsersHome" />
 
@@ -49,7 +49,7 @@ else
     private User? User { get; set; }
     private UserCredentials? Credentials { get; set; }
     private UserEmails? Emails { get; set; }
-    private EmailManager emailManager = new EmailManager();
+
 
 
 
@@ -129,25 +129,7 @@ else
                 Emails = new UserEmails();
             }
 
-            if (Emails != null)
-            {
-                // Clear existing email accounts in the manager to avoid duplicates
-                emailManager.EmailAccounts.Clear();
-
-                // Initialize EmailManager with existing data
-                if (!string.IsNullOrEmpty(Emails.EMAIL_1))
-                {
-                    emailManager.AddEmailAccount(Emails.EMAIL_1, Emails.PASS_1 ?? "");
-                }
-                if (!string.IsNullOrEmpty(Emails.EMAIL_2))
-                {
-                    emailManager.AddEmailAccount(Emails.EMAIL_2, Emails.PASS_2 ?? "");
-                }
-                if (!string.IsNullOrEmpty(Emails.EMAIL_3))
-                {
-                    emailManager.AddEmailAccount(Emails.EMAIL_3, Emails.PASS_3 ?? "");
-                }
-            }
+         
 
 
 
@@ -203,15 +185,12 @@ else
         using var context = ContextFactory.CreateDbContext();
 
 
-        Console.WriteLine("eluno" + updatedCredentials.ID_USER);
-        // Suponiendo que 'updatedCredentials' ya está siendo rastreado por el contexto de EF...
         var entry = context.Entry(updatedCredentials);
 
 
         updatedCredentials.ID_USER = updatedUser.ID_USER;
 
 
-        Console.WriteLine("edos" + updatedCredentials.ID_USER);
 
         updatedEmails.ID_USER = updatedUser.ID_USER;
 
@@ -298,7 +277,7 @@ else
             else
             {
 
-                Console.WriteLine("clelenshials juser" + Credentials.ID_USER);
+          
                 //aqui se mandan los datos
                 await UpdateUser(User, Credentials, Emails, OriginalUserId);
 

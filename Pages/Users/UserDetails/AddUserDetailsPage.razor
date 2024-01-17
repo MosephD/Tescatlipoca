@@ -25,7 +25,7 @@
 else
 {
 @*    <h3>Agregar</h3>*@
-    <UserFormComponent IsBusy="@IsBusy" User="@User" Credentials="@Credentials" Emails="@Emails" emailManager="@emailManager" 
+    <UserFormComponent IsBusy="@IsBusy" User="@User" Credentials="@Credentials" Emails="@Emails" 
                        DepartmentsList="@DepartmentsList" OfficeList="@OfficeList" AreasList="@AreasList" OnSubmit="@HandleSubmit" OnCancel="ReturnToAddUsersHome" />
 }
 
@@ -46,7 +46,7 @@ else
     private User? User { get; set; }
     private UserCredentials? Credentials { get; set; } 
     private UserEmails? Emails { get; set; }
-    private EmailManager emailManager = new EmailManager();
+    
 
 
     public bool IsBusy { get; set; }
